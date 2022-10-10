@@ -13,13 +13,13 @@ namespace dotNetCore
         static void Main(string[] args)
         {
             var config_builder = new ConfigurationBuilder();
-            // установка пути к текущему каталогу
+            // Setting a path to current directory
             config_builder.SetBasePath(Directory.GetCurrentDirectory());
-            // получаем конфигурацию из файла appsettings.json
+            // Getting config from appsettings.json
             config_builder.AddJsonFile("appsettings.json");
-            // создаем конфигурацию
+            // Creating config
             var config = config_builder.Build();
-            // получаем строку подключени€
+            // Getting string for connecting
             string connectionString = config.GetConnectionString("DefaultConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
@@ -31,20 +31,6 @@ namespace dotNetCore
 
             using (ApplicationContext db = new ApplicationContext(options))
             {
-
-                // ƒобавление
-                /*using (ApplicationContext db = new ApplicationContext(options))
-                {
-                    Ukrainian user1 = new Ukrainian { Name = "Mykola", City = "Kharkiv", is_Angry = true };
-                    Ukrainian user2 = new Ukrainian { Name = "Dmytro", City = "Lviv", is_Angry = true };
-
-
-                    // ƒобавление
-                    db.Ukrainians.Add(user1);
-                    db.Ukrainians.Add(user2);
-                    db.SaveChanges();
-                } */
-                
                 var builder = WebApplication.CreateBuilder(args);
 
                 // Add services to the container.
@@ -56,7 +42,7 @@ namespace dotNetCore
                 if (!app.Environment.IsDevelopment())
                 {
                     app.UseExceptionHandler("/Error");
-                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                    
                     app.UseHsts();
                 }
 
@@ -110,22 +96,22 @@ namespace dotNetCore
 
                 app.Run();
 
-                // получение всех пользователей
+                // Gets all users
                 static async Task GetAllPeople(HttpResponse response, ApplicationContext db)
                 {
                     var ukrainians = db.Ukrainians.ToList();
                     await response.WriteAsJsonAsync(ukrainians);
                 }
-                // получение одного пользовател€ по id
+                // Gets one user with specific id
                 async Task GetPerson(HttpResponse response, int? id)
                 {
 
                     Ukrainian? ukrainian = db.Ukrainians.FirstOrDefault((u) => u.Id == id);
-                    // если пользователь найден, отправл€ем его
+                    // If user exist, sending him
 
                     if (ukrainian != null)
                         await response.WriteAsJsonAsync(ukrainian);
-                    // если не найден, отправл€ем статусный код и сообщение об ошибке
+                    // If user doesn't exist, sending status code and error message
                     else
                     {
                         response.StatusCode = 404;
