@@ -75,9 +75,8 @@ namespace dotNetCore
                     var response = context.Response;
                     var request = context.Request;
                     var path = request.Path;
-                    string expressionForNumber = "^/api/users/[0-9]+$";   // если id представляет число
+                    string expressionForNumber = "^/api/users/[0-9]+$";  
 
-                    // 2e752824-1657-4c7f-844b-6ec2e168e99c
 
                     Console.WriteLine(path);
 
@@ -87,7 +86,6 @@ namespace dotNetCore
                     }
                     else if ((Regex.IsMatch(path, expressionForNumber)) && request.Method == "GET")
                     {
-                        // получаем id из адреса url
                         int? id = int.Parse(path.Value?.Split("/")[3]);
                         await GetPerson(response, id);
 
