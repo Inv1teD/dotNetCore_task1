@@ -115,7 +115,7 @@ namespace dotNetCore
                     else
                     {
                         response.StatusCode = 404;
-                        await response.WriteAsJsonAsync(new { message = "Пользователь не найден" });
+                        await response.WriteAsJsonAsync(new { message = "User wasn't found" });
                     }
                 }
                     
@@ -134,13 +134,13 @@ namespace dotNetCore
                             }
                             else
                             {
-                                throw new Exception("Некорректные данные");
+                                throw new Exception("Incorrect data");
                             }
                         }
                         catch (Exception)
                         {
                             response.StatusCode = 400;
-                            await response.WriteAsJsonAsync(new { message = "Некорректные данные" });
+                            await response.WriteAsJsonAsync(new { message = "Incorrect data" });
                         }
                     }
                 async Task DeletePerson(HttpResponse response, int? id)
@@ -158,7 +158,7 @@ namespace dotNetCore
                     else
                     {
                         response.StatusCode = 404;
-                        await response.WriteAsJsonAsync(new { message = "Некорректный параметр id" });
+                        await response.WriteAsJsonAsync(new { message = "Incorrect param id" });
                     }
                     
                 }
