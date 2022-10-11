@@ -5,13 +5,13 @@ Firstly you need to setup a PostgerSQL database in config file appsettings.json 
 "Host={host};Port={port};Database={database_name};Username={psql_username};Password={psql_user_password};"
 
 ENDPOINTS:
-1.  GET "/api/users":
+1.  GET "/api":
     
     Get a list of all users from db;
-2.  GET "/api/users/[id]":
+2.  GET "/api/[id]":
     
     Get a data about user with specific id;
-3.  POST "/api/users":
+3.  POST "/api":
     
     Create a new user with data. Pass data in json:
     
@@ -21,6 +21,3 @@ ENDPOINTS:
     "city": "Kharkiv",
     "is_Angry": true
      }
-4.  DELETE "/api/users/[id]":
-    
-    Delete a user with specific id;
