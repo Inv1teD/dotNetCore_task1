@@ -91,9 +91,13 @@ namespace dotNetCore
                 {
                     // remove .Dispose() from the code
                     db.Dispose();
+                    // consider using approriate exception like NotFoundException
+                    // or creating the custom one
                     throw new Exception("Incorrect data");
                 }
             }
+            // its a bad practice to not handle an exception at all
+            // add Microsoft logger via constructor, add .LogError
             catch (Exception)
             {
                 db.Dispose();
