@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace dotNetCore
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : DbContext // rename to UkrainiansContext
     {
         public DbSet<Ukrainian> Ukrainians { get; set; }
 

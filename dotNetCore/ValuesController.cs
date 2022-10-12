@@ -16,8 +16,13 @@ namespace dotNetCore
 {
     [Route("api")]
     [ApiController]
+    // rename to UkrainiansController
+
+    // consider using async db calls instead of sync, rename methods using Async convention
+    // MethodAsync instead of Method
     public class ValuesController : ControllerBase
     {
+        // use ApplicationContext injection in constructor instead of this method
         public DbContextOptions<ApplicationContext> DBConnect()
         {
             var config_builder = new ConfigurationBuilder();
@@ -38,34 +43,29 @@ namespace dotNetCore
         }
 
         // GET: api/
-        // Returns data about all users
         [HttpGet]
         public IActionResult GetAll()
         {
-            // Get data from db
             ApplicationContext db = new ApplicationContext(DBConnect());
             var users = db.Ukrainians.ToList();
             db.Dispose();
-            // Return all users and StatusCode 200
             return Ok(users);
 
         }
 
         // GET api/{id}
-        // Returns data about user with specific id
         [HttpGet("{id}")]
-        public IActionResult Getone(int id)
+        public IActionResult Getone(int id) // rename to Get
         {
             // Get data from db
             ApplicationContext db = new ApplicationContext(DBConnect());
             var user = db.Ukrainians.FirstOrDefault((u) => u.Id == id);
             db.Dispose();
-            // If user exist, sending data about user
+
             if (user != null)
             {
                 return Ok(user);
             }
-            // If user doesn't exist, sending status code and error message
             else
             {
                 return StatusCode(418);
@@ -76,26 +76,24 @@ namespace dotNetCore
         [HttpPost]
         public IActionResult Post([FromBody] Ukrainian user)
         {
-            // Connect to Db
-            ApplicationContext db = new ApplicationContext(DBConnect());
+            using ApplicationContext db = new ApplicationContext(DBConnect());
             try
             {
-                // If there is any object in request body, trying to create new user
                 if (user != null)
                 {
                     db.Ukrainians.Add(user);
                     db.SaveChanges();
+                    // remove .Dispose() from the code
                     db.Dispose();
                     return Ok(user);
                 }
-                // If there is a problem with given data (ex. wrong type of data)
                 else
                 {
+                    // remove .Dispose() from the code
                     db.Dispose();
                     throw new Exception("Incorrect data");
                 }
             }
-            // If exception is caught, sending 400 status code 
             catch (Exception)
             {
                 db.Dispose();

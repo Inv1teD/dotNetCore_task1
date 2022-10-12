@@ -7,23 +7,24 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+// DotNetMentorship.Data
 
-namespace dotNetCore
+namespace dotNetCore // PascalCase; Example: DotNetMentorship.TestAPI
 {
     class Program
     {
 
         static void Main(string[] args)
         {
+            // rename using camelCase
             var config_builder = new ConfigurationBuilder();
-            // Setting a path to current directory
+
             config_builder.SetBasePath(Directory.GetCurrentDirectory());
-            // Getting config from appsettings.json
             config_builder.AddJsonFile("appsettings.json");
-            // Creating config
             var config = config_builder.Build();
-            // Getting string for connecting
+
             string connectionString = config.GetConnectionString("DefaultConnection");
+            // consider renaming connection string name to UkrainiansDbConnection
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
             var options = optionsBuilder
@@ -32,12 +33,16 @@ namespace dotNetCore
 
             var builder = WebApplication.CreateBuilder(args);
 
+            // Consider using separate Startup class
             // Add services to the container.
-            builder.Services.AddRazorPages();
+            builder
+                .Services
+                //.AddDbContext<ApplicationContext>
+                // is the right way of setuping db context for your application
+                .AddRazorPages();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
