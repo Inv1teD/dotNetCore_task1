@@ -1,16 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace dotNetCore
+namespace DotNetMentorship.TestAPI
 {
-    public class ApplicationContext : DbContext
+
+    public class UkrainianDbContext : DbContext
     {
         public DbSet<Ukrainian> Ukrainians { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+        public UkrainianDbContext(DbContextOptions<UkrainianDbContext> options)
             : base(options)
         {
             Database.EnsureCreated();
         }
+        
     }
 }

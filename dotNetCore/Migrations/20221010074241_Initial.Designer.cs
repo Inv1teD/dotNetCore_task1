@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using dotNetCore;
+using DotNetMentorship.TestAPI;
 
 #nullable disable
 
 namespace dotNetCore.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
+    [DbContext(typeof(UkrainianDbContext))]
     [Migration("20221010074241_Initial")]
     partial class Initial
     {
