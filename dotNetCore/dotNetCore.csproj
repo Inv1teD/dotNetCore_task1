@@ -8,6 +8,7 @@
     <RootNamespace>DotNetMentorship.TestAPI</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'dotNetCore' " />
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>

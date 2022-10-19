@@ -7,6 +7,7 @@ namespace DotNetMentorship.TestAPI
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            // rename config_builder
             var config_builder = new ConfigurationBuilder();
             config_builder.SetBasePath(Directory.GetCurrentDirectory());
             config_builder.AddJsonFile("appsettings.json");

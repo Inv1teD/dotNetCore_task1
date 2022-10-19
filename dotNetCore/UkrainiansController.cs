@@ -14,10 +14,15 @@ using System.Text.Json.Nodes;
 
 namespace DotNetMentorship.TestAPI
 {
+    // Its better to add related domain to routing
+    // Something like api/ukrainians
+    // Look through REST best practices
     [Route("api")]
     [ApiController]
     public class UkrainiansController : ControllerBase
     {
+        // Please add accessor(public, private, protected) to any property/field/method
+        // Its more convenient way, makes code more readable
         UkrainianDbContext _dbContext;
         public UkrainiansController(UkrainianDbContext dbContext) {
             _dbContext = dbContext;
@@ -55,6 +60,8 @@ namespace DotNetMentorship.TestAPI
             {
                 if (user != null)
                 {
+                    // Add more info to logs. For example "Creating user {user.Name}"
+                    // It will help to look through a big amount of logs 
                     Console.WriteLine(user.Name);
                     await _dbContext.Ukrainians.AddAsync(user);
                     await _dbContext.SaveChangesAsync(); 
@@ -67,6 +74,10 @@ namespace DotNetMentorship.TestAPI
             }
             catch (Exception)
             {
+                // you can get a message from exception here
+                // and please create custom error model for your responses
+                // like UkrainiansApiSuccessResponse or just accessor UkrainiansApiResponse with field success
+                // Its a good way to have consistent structure for both successfull and failed responses
                 return BadRequest(new { message = "Incorrect data" });
             }
         }
